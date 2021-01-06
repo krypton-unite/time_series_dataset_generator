@@ -19,6 +19,7 @@ setup(
     keywords=['Time series dataset generator'],
     url='https://github.com/krypton-unite/time_series_dataset_generator.git',
     download_url='https://pypi.org/project/time-series-dataset-generator/',
+    python_requires=">=3.7",
     install_requires = [
         'time-series-dataset',
         'time-series-generator',
