@@ -1,0 +1,21 @@
+# Virtualenv
+/.env/
+
+# Package
+*.egg-info
+
+# Compiled python
+__pycache__/
+
+# Pytest cache
+.pytest_cache/
+
+# Doc
+docs/build
+
+# Vscode
+/.vscode
+
+# Package build
+/build
+/dist
