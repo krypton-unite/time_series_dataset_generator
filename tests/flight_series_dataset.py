@@ -32,3 +32,6 @@ class FlightSeriesDataset(TimeSeriesDataset):
 
     def wrap(self, tsd):
         self.__dict__ = tsd.__dict__
+    
+    def make_future_dataframe(*args, **kwargs):
+        pass
