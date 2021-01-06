@@ -33,5 +33,6 @@ class FlightSeriesDataset(TimeSeriesDataset):
     def wrap(self, tsd):
         self.__dict__ = tsd.__dict__
     
-    def make_future_dataframe(*args, **kwargs):
+    # pylint: disable=arguments-differ
+    def make_future_dataframe(self, number_of_months, include_history=True):
         pass
