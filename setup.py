@@ -39,8 +39,7 @@ setup(
             'pylint',
             'autopep8'
         ],
-        'docs': [
-            
+        'docs': [        
         ]
     }
 )
