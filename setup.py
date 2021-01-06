@@ -29,6 +29,7 @@ setup(
         'test': [
             'pytest',
             'pytest-cov',
+            'seaborn',
             'time_series_predictor',
             'time-series-models',
         ],
