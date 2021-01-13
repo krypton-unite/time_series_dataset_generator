@@ -141,9 +141,9 @@ time-series-dataset==0.0.6 \
     --hash=sha256:27ba1e9779243ebeac2d69967c04fb211aee94cf47fdcc29b08d0ad0a97612e9 \
     --hash=sha256:a0163c2cd561a3f25b5f54a275797571a1ba7a4bcb5ddd480afbb33829e10e7a
     # via time_series_dataset_generator (.\setup.py)
-time-series-generator==0.1.5 \
-    --hash=sha256:23aabb7c43888b175e810d77e6156813245200f963706f7beb6349232bf2afbc \
-    --hash=sha256:d4458b9dcdf5c59828435becdd301afe37915bf3abea406f5945e058c83c1d67
+time-series-generator==0.2.0 \
+    --hash=sha256:724b0dd452a28b7ad88436bae9aef7765a9a1f83530f32975d0585a648a3e939 \
+    --hash=sha256:eddaf290772c29bc5c28cf239d08d46ba353fa42f04b18da8510fbb5bd4778ef
     # via time_series_dataset_generator (.\setup.py)
 torch==1.7.1+cu110 \
     --hash=sha256:2aa7c4219181e31fae146e5e42e395128214487fc7d016bc263fc60b354d22d6
