@@ -43,7 +43,7 @@ def test_main():
     past_pattern_length = 24
     future_pattern_length = 12
     pattern_length = past_pattern_length + future_pattern_length
-    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, 1, stride=1)
+    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, pattern_length, stride=1)
     tsp.fit(fsd)
 
     mean_r2_score = tsp.score(tsp.dataset)
