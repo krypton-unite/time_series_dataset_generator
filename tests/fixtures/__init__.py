@@ -1,0 +1,1 @@
+from .stride_result_fixture import expected_stride_result
