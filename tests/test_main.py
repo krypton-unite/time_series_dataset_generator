@@ -8,8 +8,9 @@ from time_series_predictor import TimeSeriesPredictor
 from torch.optim import Adam
 
 from .helpers import FlightSeriesDataset
-from .fixtures import expected_stride_result
+from .fixtures import expected_stride_result, test_main_context
 
+# @pytest.mark.skip
 @pytest.mark.usefixtures('expected_stride_result')
 @pytest.mark.parametrize('stride', ['auto', 1])
 def test_size_stride(stride, expected_stride_result):
@@ -24,7 +25,13 @@ def test_size_stride(stride, expected_stride_result):
     assert fsd.y.shape == expected_result['y.shape']
 
 # @pytest.mark.skip
-def test_main():
+@pytest.mark.usefixtures('test_main_context')
+@pytest.mark.parametrize('stride', ['auto', 1])
+def test_main(stride, test_main_context):
+    past_pattern_length = 24
+    future_pattern_length = 12
+    pattern_length = past_pattern_length + future_pattern_length
+    context = test_main_context(stride, pattern_length)
     tsp = TimeSeriesPredictor(
         BenchmarkLSTM(
             initial_forget_gate_bias=1,
@@ -37,17 +44,14 @@ def test_main():
         iterator_train__shuffle=True,
         early_stopping=EarlyStopping(patience=100),
         max_epochs=500,
-        train_split=CVSplit(10),
+        train_split=CVSplit(context['n_cv_splits']),
         optimizer=Adam,
     )
-    past_pattern_length = 24
-    future_pattern_length = 12
-    pattern_length = past_pattern_length + future_pattern_length
-    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, pattern_length, stride=1)
+    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, context['except_last_n'], stride=stride)
     tsp.fit(fsd)
 
     mean_r2_score = tsp.score(tsp.dataset)
-    assert mean_r2_score > 0
+    assert mean_r2_score > context['mean_r2_score']
 
     netout = tsp.predict(fsd.X_test)
 
@@ -57,4 +61,4 @@ def test_main():
     y_hat = netout[idx, :, :]
     r2s = r2_score(y_true, y_hat)
     print("Final R2 score: {}".format(r2s))
-    assert r2s > -1
+    assert r2s > context['final_r2_score']
