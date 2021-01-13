@@ -12,7 +12,7 @@ from .fixtures import expected_stride_result
 
 @pytest.mark.usefixtures('expected_stride_result')
 @pytest.mark.parametrize('stride', ['auto', 1])
-def test_size_stride_1(stride, expected_stride_result):
+def test_size_stride(stride, expected_stride_result):
     expected_result = expected_stride_result(stride)
     past_pattern_length = 24
     future_pattern_length = 12
