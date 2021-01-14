@@ -137,13 +137,13 @@ threadpoolctl==2.1.0 \
     --hash=sha256:38b74ca20ff3bb42caca8b00055111d74159ee95c4370882bbff2b93d24da725 \
     --hash=sha256:ddc57c96a38beb63db45d6c159b5ab07b6bced12c45a1f07b2b92f272aebfa6b
     # via scikit-learn
-time-series-dataset==0.0.6 \
-    --hash=sha256:27ba1e9779243ebeac2d69967c04fb211aee94cf47fdcc29b08d0ad0a97612e9 \
-    --hash=sha256:a0163c2cd561a3f25b5f54a275797571a1ba7a4bcb5ddd480afbb33829e10e7a
+time-series-dataset==0.0.7 \
+    --hash=sha256:425cce37b90958ebee17146014c820778fdce2345685907a7d07460093a4b4e7 \
+    --hash=sha256:a9c8bdb5d25be8dd735445ceaefa040b1b0e29a018e8a641bd935744461f8f60
     # via time_series_dataset_generator (.\setup.py)
-time-series-generator==0.2.3 \
-    --hash=sha256:0d34949b002d0ce657e2a4304d63af8415c6d65bbd9c537454bfcb4291a9503f \
-    --hash=sha256:6dea5a149360c880e29b4e545f50e431e33c25746a108f93b148d8bf251b4d96
+time-series-generator==0.2.4 \
+    --hash=sha256:17f808fe5e583c1d77823657e769683ff22c7ff63695e6da5abb13d1282bb7f5 \
+    --hash=sha256:3bed432b845ef3f64090898991fbac9b5d003a0bf38d36b73e2bc9d5c684400c
     # via time_series_dataset_generator (.\setup.py)
 torch==1.7.1+cu110 \
     --hash=sha256:2aa7c4219181e31fae146e5e42e395128214487fc7d016bc263fc60b354d22d6
