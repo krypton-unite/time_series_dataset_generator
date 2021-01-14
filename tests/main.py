@@ -1,4 +1,3 @@
-import pytest
 import numpy as np
 from sklearn.metrics import r2_score  # mean_squared_error
 from skorch.callbacks import EarlyStopping
@@ -7,31 +6,16 @@ from time_series_models import BenchmarkLSTM
 from time_series_predictor import TimeSeriesPredictor
 from torch.optim import Adam
 
-from .helpers import FlightSeriesDataset
-from .fixtures import expected_stride_result, test_main_context
+from tests.helpers import FlightSeriesDataset
+from tests.fixtures import expected_stride_result, test_main_context
 
-# @pytest.mark.skip
-@pytest.mark.usefixtures('expected_stride_result')
-@pytest.mark.parametrize('stride', ['auto', 1])
-def test_size_stride(stride, expected_stride_result):
-    expected_result = expected_stride_result(stride)
-    past_pattern_length = 24
-    future_pattern_length = 12
+if __name__ == "__main__":
+    stride = 1
+    context = test_main_context()
+    context = context(stride)
+    past_pattern_length = context['past_pattern_length']
+    future_pattern_length = context['future_pattern_length']
     pattern_length = past_pattern_length + future_pattern_length
-    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, 0, stride = stride)
-    assert fsd.X_test.shape == expected_result['X_test.shape']
-    assert fsd.y_test.shape == expected_result['y_test.shape']
-    assert fsd.x.shape == expected_result['x.shape']
-    assert fsd.y.shape == expected_result['y.shape']
-
-# @pytest.mark.skip
-@pytest.mark.usefixtures('test_main_context')
-@pytest.mark.parametrize('stride', ['auto', 1])
-def test_main(stride, test_main_context):
-    past_pattern_length = 36
-    future_pattern_length = 12
-    pattern_length = past_pattern_length + future_pattern_length
-    context = test_main_context(stride, pattern_length)
     tsp = TimeSeriesPredictor(
         BenchmarkLSTM(
             initial_forget_gate_bias=1,

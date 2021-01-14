@@ -1,11 +1,7 @@
 import calendar
-import math
-
-import pandas as pd
 import seaborn as sns
 from time_series_dataset import TimeSeriesDataset
-from time_series_dataset_generator import (make_predictor,
-                                           make_time_series_dataset)
+from time_series_dataset_generator import make_time_series_dataset
 
 
 class FlightSeriesDataset(TimeSeriesDataset):
