@@ -19,8 +19,7 @@ def test_size_stride(stride, expected_stride_result):
     future_pattern_length = 12
     pattern_length = past_pattern_length + future_pattern_length
     fsd = FlightSeriesDataset(pattern_length, future_pattern_length, 0, stride = stride)
-    assert fsd.X_test.shape == expected_result['X_test.shape']
-    assert fsd.y_test.shape == expected_result['y_test.shape']
+    assert fsd.test == None
     assert fsd.x.shape == expected_result['x.shape']
     assert fsd.y.shape == expected_result['y.shape']
 
@@ -28,10 +27,10 @@ def test_size_stride(stride, expected_stride_result):
 @pytest.mark.usefixtures('test_main_context')
 @pytest.mark.parametrize('stride', ['auto', 1])
 def test_main(stride, test_main_context):
-    past_pattern_length = 36
-    future_pattern_length = 12
+    context = test_main_context(stride)
+    past_pattern_length = context['past_pattern_length']
+    future_pattern_length = context['future_pattern_length']
     pattern_length = past_pattern_length + future_pattern_length
-    context = test_main_context(stride, pattern_length)
     tsp = TimeSeriesPredictor(
         BenchmarkLSTM(
             initial_forget_gate_bias=1,
@@ -53,11 +52,11 @@ def test_main(stride, test_main_context):
     mean_r2_score = tsp.score(tsp.dataset)
     assert mean_r2_score > context['mean_r2_score']
 
-    netout = tsp.predict(fsd.X_test)
+    netout = tsp.predict(fsd.test.x)
 
-    idx = np.random.randint(0, len(fsd.X_test))
+    idx = np.random.randint(0, len(fsd.test.x))
 
-    y_true = fsd.y_test[idx, :, :]
+    y_true = fsd.test.y[idx, :, :]
     y_hat = netout[idx, :, :]
     r2s = r2_score(y_true, y_hat)
     print("Final R2 score: {}".format(r2s))
