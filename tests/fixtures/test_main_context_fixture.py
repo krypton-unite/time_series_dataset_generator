@@ -3,7 +3,7 @@ import pytest
 result = {
     "auto": {
         "mean_r2_score": -20,
-        "final_r2_score": -30,
+        "final_r2_score": -50,
         "n_cv_splits": 2,
         "lr": 1e-5,
         'past_pattern_length': 24,
