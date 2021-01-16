@@ -37,7 +37,7 @@ def test_main(stride, test_main_context):
             hidden_dim=7,
             num_layers=1,
         ),
-        lr = 5e-3,
+        lr = context['lr'],
         lambda1=1e-8,
         optimizer__weight_decay=1e-8,
         iterator_train__shuffle=True,
