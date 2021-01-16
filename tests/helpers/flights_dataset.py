@@ -13,8 +13,8 @@ def _make_predictor(features, number_of_training_examples):
     return _raw_make_predictor(features, number_of_training_examples, -1)
 
 class FlightsDataset(FlightSeriesDataset):
-    def __init__(self, pattern_length=144, n_to_predict=0, except_last_n=0):
-        super().__init__(pattern_length, n_to_predict, except_last_n, augmentation=0, stride=1)
+    def __init__(self, pattern_length=144, n_to_predict=0, except_last_n=0, **kwargs):
+        super().__init__(pattern_length, n_to_predict, except_last_n, augmentation=0, stride=1, **kwargs)
 
     # pylint: disable=arguments-differ
     def make_future_dataframe(self, number_of_months, include_history=True):

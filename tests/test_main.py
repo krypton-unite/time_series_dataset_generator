@@ -46,7 +46,7 @@ def test_main(stride, test_main_context):
         train_split=CVSplit(context['n_cv_splits']),
         optimizer=Adam,
     )
-    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, context['except_last_n'], stride=stride)
+    fsd = FlightSeriesDataset(pattern_length, future_pattern_length, context['except_last_n'], stride=stride, generate_test_dataset=True)
     tsp.fit(fsd)
 
     mean_r2_score = tsp.score(tsp.dataset)

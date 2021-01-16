@@ -18,7 +18,7 @@ def make_predictor(given_values, features_labels):
     features = _make_features(values, features_labels)
     return _raw_make_predictor(features), [feature.Name for feature in features]
 
-def make_time_series_dataset(input_df, pattern_length, n_to_predict, input_features_labels, output_features_labels, except_last_n, augmentation=0, stride='auto', shuffle=False, overlap = 0):
+def make_time_series_dataset(input_df, pattern_length, n_to_predict, input_features_labels, output_features_labels, except_last_n, augmentation=0, stride='auto', shuffle=False, overlap = 0, generate_test_dataset = False):
     def _make_regression(cd, pattern_length, input_features_labels, output_features_labels, n_to_predict, augmentation, stride, shuffle):
         def generate_timeseries(cd, pattern_length, n_to_predict, augmentation, stride, shuffle):
             tg = TimeseriesGenerator(
@@ -58,17 +58,18 @@ def make_time_series_dataset(input_df, pattern_length, n_to_predict, input_featu
     if except_last_n == 0:
         tsd.test = None
     else:
-        X_test, y_test, labels = _make_regression(
-            input_df[:except_last_n],
-            pattern_length,
-            input_features_labels,
-            output_features_labels,
-            n_to_predict,
-            augmentation,
-            stride,
-            shuffle
-        )   
+        if generate_test_dataset:
+            X_test, y_test, labels = _make_regression(
+                input_df[:except_last_n],
+                pattern_length,
+                input_features_labels,
+                output_features_labels,
+                n_to_predict,
+                augmentation,
+                stride,
+                shuffle
+            )   
 
-        tsd.test = TimeSeriesDataset(X_test, y_test, labels)
+            tsd.test = TimeSeriesDataset(X_test, y_test, labels)
 
     return tsd
