@@ -20,8 +20,8 @@ def test_size_stride(stride, expected_stride_result):
     pattern_length = past_pattern_length + future_pattern_length
     fsd = FlightSeriesDataset(pattern_length, future_pattern_length, 0, stride = stride)
     assert fsd.test == None
-    assert fsd.x.shape == expected_result['x.shape']
-    assert fsd.y.shape == expected_result['y.shape']
+    assert (fsd.x == expected_result['x']).all()
+    assert (fsd.y == expected_result['y']).all()
 
 # @pytest.mark.skip
 @pytest.mark.usefixtures('test_main_context')

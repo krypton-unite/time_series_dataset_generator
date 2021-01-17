@@ -4,17 +4,12 @@ import pandas as pd
 from time_series_dataset import TimeSeriesDataset
 import sys
 
-def make_predictor(given_values, features_labels):
+def make_predictor(values, features_labels):
     def _raw_make_predictor(features):
         #pylint: disable=too-many-function-args
         return np.dstack(features).astype(np.float32)
     def _make_features(values, features_labels):
         return [values[label] for label in features_labels]
-    labels = list(features_labels)
-    values = {}
-    for idx, a_label in enumerate(labels):
-        values[a_label] = pd.DataFrame(given_values[:,:,idx])
-        values[a_label].Name = a_label
     features = _make_features(values, features_labels)
     return _raw_make_predictor(features), [feature.Name for feature in features]
 
@@ -34,7 +29,15 @@ def make_time_series_dataset(input_df, pattern_length, n_to_predict, input_featu
 
             x, y = tg[0]
             
-            return x, y
+            labels = list(cd)
+            input_values = {}
+            output_values = {}
+            for idx, a_label in enumerate(labels):
+                input_values[a_label] = pd.DataFrame(x[:,:,idx])
+                output_values[a_label] = pd.DataFrame(y[:,:,idx])
+                input_values[a_label].Name = a_label
+                output_values[a_label].Name = a_label
+            return input_values, output_values
 
         input_values, output_values = generate_timeseries(cd, pattern_length, n_to_predict, augmentation, stride, shuffle)
         

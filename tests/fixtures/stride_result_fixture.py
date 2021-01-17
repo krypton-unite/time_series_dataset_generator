@@ -1,14 +1,25 @@
 import pytest
+import numpy as np
+from pathlib import Path
+import os
 
-result = {
-    "auto": {
-        "x.shape": (4, 24, 2),
-        "y.shape": (4, 24, 1),
-    },
-    "1": {
-        "x.shape": (109, 24, 2),
-        "y.shape": (109, 24, 1),
-    }
+filepath = Path(os.path.split(__file__)[0])
+
+result = {}
+with \
+    open(Path.joinpath(filepath, 'size_stride_1_x.npy'), 'rb') as f_1_x, \
+    open(Path.joinpath(filepath, 'size_stride_1_y.npy'), 'rb') as f_1_y, \
+    open(Path.joinpath(filepath, 'size_stride_auto_x.npy'), 'rb') as f_auto_x, \
+    open(Path.joinpath(filepath, 'size_stride_auto_y.npy'), 'rb') as f_auto_y:
+    result = {
+        "auto": {
+            'x': np.load(f_auto_x, allow_pickle = True),
+            'y': np.load(f_auto_y, allow_pickle = True),
+        },
+        "1": {
+            'x': np.load(f_1_x, allow_pickle = True),
+            'y': np.load(f_1_y, allow_pickle = True),
+        }
 }
 
 @pytest.fixture

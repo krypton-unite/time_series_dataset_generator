@@ -2,8 +2,8 @@ import pytest
 
 result = {
     "auto": {
-        "mean_r2_score": -20,
-        "final_r2_score": -50,
+        "mean_r2_score": -5,
+        "final_r2_score": -10,
         "n_cv_splits": 2,
         "lr": 1e-5,
         'past_pattern_length': 24,
