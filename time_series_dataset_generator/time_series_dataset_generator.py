@@ -2,7 +2,6 @@ import numpy as np
 from time_series_generator import TimeseriesGenerator
 import pandas as pd
 from time_series_dataset import TimeSeriesDataset
-import sys
 
 def make_predictor(values, features_labels):
     def _raw_make_predictor(features):
